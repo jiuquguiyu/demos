@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ai.demos.dao.student.ScoreMapper">
+  <resultMap id="BaseResultMap" type="com.ai.demos.model.student.Score">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="course_name" jdbcType="CHAR" property="courseName" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="course_id" jdbcType="BIGINT" property="courseId" />
+    <result column="student_id" jdbcType="BIGINT" property="studentId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, course_name, score, course_id, student_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from score
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from score
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ai.demos.model.student.Score">
+    insert into score (id, course_name, score, 
+      course_id, student_id)
+    values (#{id,jdbcType=BIGINT}, #{courseName,jdbcType=CHAR}, #{score,jdbcType=INTEGER}, 
+      #{courseId,jdbcType=BIGINT}, #{studentId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ai.demos.model.student.Score">
+    insert into score
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="courseName != null">
+        course_name,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="courseId != null">
+        course_id,
+      </if>
+      <if test="studentId != null">
+        student_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="courseName != null">
+        #{courseName,jdbcType=CHAR},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="courseId != null">
+        #{courseId,jdbcType=BIGINT},
+      </if>
+      <if test="studentId != null">
+        #{studentId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ai.demos.model.student.Score">
+    update score
+    <set>
+      <if test="courseName != null">
+        course_name = #{courseName,jdbcType=CHAR},
+      </if>
+      <if test="score != null">
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="courseId != null">
+        course_id = #{courseId,jdbcType=BIGINT},
+      </if>
+      <if test="studentId != null">
+        student_id = #{studentId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ai.demos.model.student.Score">
+    update score
+    set course_name = #{courseName,jdbcType=CHAR},
+      score = #{score,jdbcType=INTEGER},
+      course_id = #{courseId,jdbcType=BIGINT},
+      student_id = #{studentId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ai.demos.dao.student.CourseMapper">
+  <resultMap id="BaseResultMap" type="com.ai.demos.model.student.Course">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="CHAR" property="name" />
+    <result column="teacher_name" jdbcType="CHAR" property="teacherName" />
+    <result column="state" jdbcType="CHAR" property="state" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.ai.demos.model.student.Course">
+    <result column="teacher_id" jdbcType="BINARY" property="teacherId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, teacher_name, state
+  </sql>
+  <sql id="Blob_Column_List">
+    teacher_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from course
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from course
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ai.demos.model.student.Course">
+    insert into course (id, name, teacher_name, 
+      state, teacher_id)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=CHAR}, #{teacherName,jdbcType=CHAR}, 
+      #{state,jdbcType=CHAR}, #{teacherId,jdbcType=BINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ai.demos.model.student.Course">
+    insert into course
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="teacherName != null">
+        teacher_name,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="teacherId != null">
+        teacher_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=CHAR},
+      </if>
+      <if test="teacherName != null">
+        #{teacherName,jdbcType=CHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=CHAR},
+      </if>
+      <if test="teacherId != null">
+        #{teacherId,jdbcType=BINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ai.demos.model.student.Course">
+    update course
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=CHAR},
+      </if>
+      <if test="teacherName != null">
+        teacher_name = #{teacherName,jdbcType=CHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=CHAR},
+      </if>
+      <if test="teacherId != null">
+        teacher_id = #{teacherId,jdbcType=BINARY},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ai.demos.model.student.Course">
+    update course
+    set name = #{name,jdbcType=CHAR},
+      teacher_name = #{teacherName,jdbcType=CHAR},
+      state = #{state,jdbcType=CHAR},
+      teacher_id = #{teacherId,jdbcType=BINARY}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ai.demos.model.student.Course">
+    update course
+    set name = #{name,jdbcType=CHAR},
+      teacher_name = #{teacherName,jdbcType=CHAR},
+      state = #{state,jdbcType=CHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

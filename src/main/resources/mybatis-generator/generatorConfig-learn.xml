@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE generatorConfiguration
+         PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+ 
+ <generatorConfiguration>
+ 		<!-- jdbc连接的mysql或者oracle的连接包jar，最好是配置为绝对路径 -->
+     <classPathEntry
+             location="C:/Users/jiuqu/.m2/repository/mysql/mysql-connector-java/5.1.41/mysql-connector-java-5.1.41.jar"/>
+     <context id="my" targetRuntime="MyBatis3">
+         <commentGenerator>
+             <property name="suppressDate" value="false"/>
+             <property name="suppressAllComments" value="true"/>
+         </commentGenerator>
+ 		<!-- 配置数据源信息，多数据源需要配置多份文件，对应需要修改数据源信息，可以使不同主机的数据库，也可以是同一数据库服务器上的不同数据库名 -->
+         <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://10.1.45.24/learn" userId="dev-bj" password="123456">    
+        </jdbcConnection>   
+ 		<!-- 配置生成的model对象也就是javabean，对应数据库表属性的javabean生成到的包路径和绝对代码路径，只需要配置到工程的/src/main/java就可以了，具体的路径由包路径指定。
+ 			由于多数据源，所以我在model后面加了一层以示区分不同数据源的信息 -->
+         <javaModelGenerator targetPackage="com.ai.demos.model.learn"
+                             targetProject="C:/myDir/WorkSpace/EclipseWorkSpace/demo/src/main/java">
+             <property name="enableSubPackages" value="true"/>
+             <property name="trimStrings" value="true"/>
+         </javaModelGenerator>
+ 		<!-- mapper文件生成路劲和包名 -->
+         <sqlMapGenerator targetPackage="com.ai.demos.mapper.learn"
+                          targetProject="C:/myDir/WorkSpace/EclipseWorkSpace/demo/src/main/java">
+             <property name="enableSubPackages" value="true"/>
+         </sqlMapGenerator>
+ 		<!-- dao层接口文件 -->
+         <javaClientGenerator targetPackage="com.ai.demos.dao.learn"
+                              targetProject="C:/myDir/WorkSpace/EclipseWorkSpace/demo/src/main/java" type="XMLMAPPER">
+             <property name="enableSubPackages" value="true"/>
+         </javaClientGenerator>
+ 		<!-- 数据库里面的表名信息和配置，多张表需要配置多条信息 -->
+ 		<table tableName="learn_resource" domainObjectName="LearnResource"
+                enableCountByExample="false" enableUpdateByExample="false"
+                enableDeleteByExample="false" enableSelectByExample="false"
+                selectByExampleQueryId="false">
+         </table> 
+ 
+         <!-- <table tableName="student" domainObjectName="Student"
+                enableCountByExample="false" enableUpdateByExample="false"
+                enableDeleteByExample="false" enableSelectByExample="false"
+                selectByExampleQueryId="false">
+         </table>
+          <table tableName="course" domainObjectName="Course"
+                enableCountByExample="false" enableUpdateByExample="false"
+                enableDeleteByExample="false" enableSelectByExample="false"
+                selectByExampleQueryId="false">
+         </table>
+          <table tableName="score" domainObjectName="Score"
+                enableCountByExample="false" enableUpdateByExample="false"
+                enableDeleteByExample="false" enableSelectByExample="false"
+                selectByExampleQueryId="false">
+         </table>
+          <table tableName="teacher" domainObjectName="Teacher"
+                enableCountByExample="false" enableUpdateByExample="false"
+                enableDeleteByExample="false" enableSelectByExample="false"
+                selectByExampleQueryId="false">
+         </table>
+          -->
+ 
+     </context>
+ </generatorConfiguration>
