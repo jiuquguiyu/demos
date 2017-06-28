@@ -13,7 +13,7 @@
              <property name="suppressAllComments" value="true"/>
          </commentGenerator>
  		<!-- 配置数据源信息，多数据源需要配置多份文件，对应需要修改数据源信息，可以使不同主机的数据库，也可以是同一数据库服务器上的不同数据库名 -->
-         <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://10.1.45.24/learn" userId="dev-bj" password="123456">    
+         <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://10.1.45.253/learn" userId="dev-bj" password="123456">    
         </jdbcConnection>   
  		<!-- 配置生成的model对象也就是javabean，对应数据库表属性的javabean生成到的包路径和绝对代码路径，只需要配置到工程的/src/main/java就可以了，具体的路径由包路径指定。
  			由于多数据源，所以我在model后面加了一层以示区分不同数据源的信息 -->
